@@ -5,6 +5,7 @@ namespace rain1208\athletic\tasks;
 
 
 use pocketmine\scheduler\Task;
+use rain1208\athletic\events\AthleticStartEvent;
 use rain1208\athletic\Main;
 
 class StartCheckTask extends Task
@@ -16,6 +17,8 @@ class StartCheckTask extends Task
             foreach (Main::getInstance()->getAthleticManager()->getAll() as $athletic) {
                 if ($athletic->getStart()->isInside($block)) {
                     Main::getInstance()->getAthleticTask()->addPlayer($player->getName(), $athletic);
+                    $ev = new AthleticStartEvent($player, $athletic);
+                    $ev->call();
                 }
             }
         }

@@ -5,6 +5,7 @@ namespace rain1208\athletic\game;
 
 
 use pocketmine\Player;
+use rain1208\athletic\events\AthleticClearEvent;
 use rain1208\athletic\Main;
 use rain1208\athletic\models\Spot;
 
@@ -30,6 +31,8 @@ class AthleticPlayer
         $next = $this->athletic->getNext($this->now);
         if ($next === null) {
             Main::getInstance()->getAthleticTask()->removePlayer($this->name);
+            $ev = new AthleticClearEvent($player, $this->athletic);
+            $ev->call();
             return;
         }
 
