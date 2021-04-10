@@ -42,6 +42,11 @@ class Athletic
         $this->goal = new Spot($gpos1, $gpos2);
     }
 
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
     public function getWorld(string $name): Level
     {
         return Main::getInstance()->getServer()->getLevelByName($name);
